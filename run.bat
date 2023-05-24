@@ -6,12 +6,14 @@ chcp 65001 > nul
 set filename=Disclaimers.txt
 set filepath=%~dp0%filename%
 
-if exist "%filepath%" (
-  type %filename% 
-) else (
-  echo Disclaimers not load successfully 
-)
-
+echo Deploy zkSync Era contract tool -By Norpeo
+echo.
+echo 【免责声明】
+echo.
+echo 本脚本完全开源免费，同时内部不包含任何后门，代码完全可查，如因操作不当或被其它人所骗，造成的任何经济损失本人概不负责。
+echo.
+echo 最后，希望大家多多关注推特: @_Norpeo ，会不定期分享关于币圈的消息，有需要也可以私我帮写一些好用的脚本。
+echo.
 echo 如果你认同上述内容请按任意键继续，如果不认同，请关闭 & pause > nul
 
 set "nodeVersion=v14.18.1"  :: 替换为您想要安装的 Node.js 版本号
@@ -33,6 +35,9 @@ if %errorlevel% equ 0 (
 :: 下载 Node.js 安装程序
 echo 正在下载 Node.js 安装程序...
 powershell -Command "(New-Object Net.WebClient).DownloadFile('%installerUrl%', '%installerFile%')"
+
+:: 等待一段时间，让环境变量生效
+timeout /t 2 > nul
 
 :: 安装 Node.js
 echo 正在安装 Node.js...
@@ -82,6 +87,9 @@ echo npm 未安装。开始安装 npm...
 :: 下载安装脚本
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://www.npmjs.com/install.bat', 'npm-install.bat')"
 
+:: 等待一段时间，让环境变量生效
+timeout /t 2 > nul
+
 :: 执行安装脚本
 call npm-install.bat
 if %errorlevel% neq 0 (
@@ -115,6 +123,10 @@ if %errorlevel% equ 0 (
 
 ::调用yarn安装
 call Iyarn.bat
+
+
+:: 等待一段时间，让环境变量生效
+timeout /t 2 > nul
 
 :continue
 echo yarn安装成功
